@@ -1,0 +1,20 @@
+# Normalize line endings so the repo stays clean across Windows and Linux.
+* text=auto
+
+*.py    text diff=python
+*.html  text
+*.css   text
+*.js    text
+*.md    text
+*.txt   text
+*.json  text
+*.yml   text
+*.yaml  text
+
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.sqlite3 binary

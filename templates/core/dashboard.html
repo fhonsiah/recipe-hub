@@ -1,0 +1,82 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block page_id %}dashboard{% endblock %}
+{% block body_attrs %}data-requires-auth="1"{% endblock %}
+{% block title %}Dashboard — RecipeHub{% endblock %}
+
+{% block content %}
+<div class="container section">
+  <section class="dash-header">
+    <span class="avatar" data-avatar>U</span>
+    <div style="flex:1">
+      <h1>Welcome back, <span data-username>cook</span></h1>
+      <p data-user-email>Manage the recipes you have shared with the community.</p>
+    </div>
+    <a class="btn btn-primary btn-lg" href="/recipes/add/">+ Add a recipe</a>
+  </section>
+
+  <div class="dash-stats">
+    <div class="dash-stat">
+      <span class="dash-icon" aria-hidden="true">&#127859;</span>
+      <div><strong id="stat-total">—</strong><span>Recipes created</span></div>
+    </div>
+    <div class="dash-stat">
+      <span class="dash-icon" aria-hidden="true">&#128149;</span>
+      <div><strong id="stat-published">—</strong><span>Published</span></div>
+    </div>
+    <div class="dash-stat">
+      <span class="dash-icon" aria-hidden="true">&#128279;</span>
+      <div><strong id="stat-favorites">—</strong><span>Your favorites</span></div>
+    </div>
+    <div class="dash-stat">
+      <span class="dash-icon" aria-hidden="true">&#128293;</span>
+      <div><strong id="stat-likes">—</strong><span>Likes received</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom: 3rem">
+  <div class="tab-bar" role="tablist">
+    <button type="button" role="tab" class="is-active" data-tab="mine" aria-selected="true">My recipes</button>
+    <button type="button" role="tab" data-tab="favorites" aria-selected="false">Favorites</button>
+    <button type="button" role="tab" data-tab="moderation" aria-selected="false" data-role-only="moderator" hidden>Moderation <span class="tab-count" id="mod-count"></span></button>
+  </div>
+
+  <section id="panel-mine" role="tabpanel">
+    <div class="toolbar">
+      <p class="result-count" id="mine-count">Loading your recipes…</p>
+      <a class="btn btn-primary btn-sm" href="/recipes/add/">+ New recipe</a>
+    </div>
+    <div class="table-wrap" id="mine-table-wrap"></div>
+  </section>
+
+  <section id="panel-favorites" role="tabpanel" hidden>
+    <div class="toolbar">
+      <p class="result-count" id="fav-count">Loading your favorites…</p>
+    </div>
+    <div class="card-grid" id="fav-grid"></div>
+  </section>
+
+  <section id="panel-moderation" role="tabpanel" hidden>
+    <div class="toolbar">
+      <p class="result-count" id="mod-summary">Loading everything…</p>
+    </div>
+    <div class="table-wrap" id="mod-table-wrap"></div>
+  </section>
+</div>
+
+<div class="modal" id="delete-modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+    <h3 id="delete-modal-title">Delete this recipe?</h3>
+    <p id="delete-modal-text">This permanently removes the recipe, its ingredients and its instructions. This cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" type="button" data-modal-cancel>Cancel</button>
+      <button class="btn btn-primary" type="button" id="delete-confirm" style="--btn-bg:var(--rose-500);--btn-border:var(--rose-500)">Delete recipe</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}

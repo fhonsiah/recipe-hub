@@ -1,0 +1,103 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block page_id %}recipes{% endblock %}
+{% block title %}Browse recipes — RecipeHub{% endblock %}
+{% block meta_description %}Search and filter community recipes by category, difficulty, cuisine and cooking time.{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span>
+      <span aria-current="page">Recipes</span>
+    </nav>
+    <h1>Browse recipes</h1>
+    <p>Every published recipe on RecipeHub. Search by name, cuisine or ingredient, then narrow it down with the filters.</p>
+  </div>
+</div>
+
+<div class="container section" style="padding-block: 1.75rem">
+  <div class="listing-layout">
+
+    <aside>
+      <button class="btn btn-outline btn-block filter-mobile-toggle" type="button" id="filter-toggle" aria-expanded="false" aria-controls="filter-panel">Filters &amp; sorting</button>
+
+      <form class="filter-panel" id="filter-panel">
+        <h3>Filters</h3>
+
+        <div class="filter-group">
+          <span class="filter-legend" id="difficulty-legend">Difficulty</span>
+          <div class="filter-options" role="group" aria-labelledby="difficulty-legend">
+            <label class="check"><input type="checkbox" name="difficulty" value="easy"> Easy</label>
+            <label class="check"><input type="checkbox" name="difficulty" value="medium"> Medium</label>
+            <label class="check"><input type="checkbox" name="difficulty" value="hard"> Hard</label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-legend" id="category-legend">Category</span>
+          <div class="filter-options" id="category-options" role="group" aria-labelledby="category-legend">
+            <span class="muted small">Loading…</span>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-legend" id="cuisine-legend">Cuisine</span>
+          <div class="filter-options" id="cuisine-options" role="group" aria-labelledby="cuisine-legend">
+            <span class="muted small">Loading…</span>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="max-time">Maximum total time</label>
+          <select id="max-time" name="max_time">
+            <option value="">Any duration</option>
+            <option value="15">Under 15 min</option>
+            <option value="30">Under 30 min</option>
+            <option value="60">Under 1 hour</option>
+            <option value="120">Under 2 hours</option>
+          </select>
+          <p class="hint" style="margin-top:.5rem">Filters the sum of preparation and cooking time.</p>
+        </div>
+
+        <div class="filter-group">
+          <label for="sort">Sort by</label>
+          <select id="sort" name="ordering">
+            <option value="-created_at">Newest first</option>
+            <option value="created_at">Oldest first</option>
+            <option value="title">Title A–Z</option>
+            <option value="preparation_time">Quickest to prepare</option>
+            <option value="cooking_time">Quickest to cook</option>
+          </select>
+        </div>
+
+        <div class="filter-actions">
+          <button class="btn btn-primary btn-block" type="submit">Apply filters</button>
+          <button class="btn btn-ghost btn-block" type="reset" id="clear-filters">Clear all</button>
+        </div>
+      </form>
+    </aside>
+
+    <section>
+      <form class="search-card" style="margin-bottom:1.5rem" role="search" id="listing-search">
+        <div class="search-field">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="search" name="q" id="search-input" placeholder="Search recipes…" aria-label="Search recipes">
+        </div>
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+
+      <div class="toolbar">
+        <p class="result-count" id="result-count">Loading recipes…</p>
+      </div>
+      <div class="active-filters" id="active-filters"></div>
+      <div class="card-grid" id="recipe-grid"></div>
+      <nav class="pagination" id="pagination" aria-label="Pagination"></nav>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/recipes.js' %}"></script>
+{% endblock %}

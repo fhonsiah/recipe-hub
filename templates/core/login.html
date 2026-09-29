@@ -1,0 +1,54 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block page_id %}login{% endblock %}
+{% block title %}Log in — RecipeHub{% endblock %}
+
+{% block content %}
+<div class="auth-layout">
+  <div class="auth-main">
+    <div class="auth-card">
+      <h1>Welcome back</h1>
+      <p>Log in to manage your recipes and favorites.</p>
+
+      <form class="form-grid" id="login-form" novalidate>
+        <div class="alert alert-error" id="login-error" hidden></div>
+
+        <div class="field">
+          <label for="username">Username or email</label>
+          <input type="text" id="username" name="username" autocomplete="username" required autofocus>
+          <span class="error-text" data-error-for="username"></span>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="password-wrap">
+            <input type="password" id="password" name="password" autocomplete="current-password" required>
+            <button class="password-toggle" type="button" data-toggle-password="password" aria-label="Show password">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+            </button>
+          </div>
+          <span class="error-text" data-error-for="password"></span>
+        </div>
+
+        <button class="btn btn-primary btn-block btn-lg" type="submit" id="login-submit">Log in</button>
+      </form>
+
+      <p class="auth-alt">New to RecipeHub? <a href="/register/">Create an account</a></p>
+    </div>
+  </div>
+
+  <aside class="auth-aside">
+    <h2>Your recipes, one login away.</h2>
+    <ul>
+      <li>Publish your own recipes with images</li>
+      <li>Edit or delete anything you have shared</li>
+      <li>Save favorites to a personal collection</li>
+      <li>Track how many cooks loved your dishes</li>
+    </ul>
+  </aside>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/auth.js' %}"></script>
+{% endblock %}

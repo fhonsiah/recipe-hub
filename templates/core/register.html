@@ -1,0 +1,69 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block page_id %}register{% endblock %}
+{% block title %}Create an account — RecipeHub{% endblock %}
+
+{% block content %}
+<div class="auth-layout">
+  <div class="auth-main">
+    <div class="auth-card">
+      <h1>Create your account</h1>
+      <p>Free, and takes about twenty seconds.</p>
+
+      <form class="form-grid" id="register-form" novalidate>
+        <div class="alert alert-error" id="register-error" hidden></div>
+
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" autocomplete="username" required autofocus>
+          <span class="hint">Letters, digits and @/./+/-/_ only. This is how cooks will see you.</span>
+          <span class="error-text" data-error-for="username"></span>
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+          <span class="hint">Only used to identify your account. Never displayed publicly.</span>
+          <span class="error-text" data-error-for="email"></span>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="password-wrap">
+            <input type="password" id="password" name="password" autocomplete="new-password" required minlength="8">
+            <button class="password-toggle" type="button" data-toggle-password="password" aria-label="Show password">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+            </button>
+          </div>
+          <span class="hint">At least 8 characters, and not something guessable.</span>
+          <span class="error-text" data-error-for="password"></span>
+        </div>
+
+        <div class="field">
+          <label for="confirm_password">Confirm password</label>
+          <input type="password" id="confirm_password" name="confirm_password" autocomplete="new-password" required>
+          <span class="error-text" data-error-for="confirm_password"></span>
+        </div>
+
+        <button class="btn btn-primary btn-block btn-lg" type="submit" id="register-submit">Create account</button>
+      </form>
+
+      <p class="auth-alt">Already have an account? <a href="/login/">Log in instead</a></p>
+    </div>
+  </div>
+
+  <aside class="auth-aside">
+    <h2>Start sharing in minutes.</h2>
+    <ul>
+      <li>No credit card, no trial period</li>
+      <li>Publish unlimited recipes</li>
+      <li>Organize ingredients and steps</li>
+      <li>Build a personal favorites collection</li>
+    </ul>
+  </aside>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/auth.js' %}"></script>
+{% endblock %}

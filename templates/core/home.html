@@ -1,0 +1,90 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block page_id %}home{% endblock %}
+{% block title %}RecipeHub — Discover, cook and share recipes{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <span class="eyebrow">Community recipes</span>
+      <h1>Cook something <em>remarkable</em> today.</h1>
+      <p class="lede">Browse thousands of tested recipes, save the ones you love, and share your own kitchen creations with a community of home cooks.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="/recipes/">Browse recipes</a>
+        <a class="btn btn-outline btn-lg" href="/register/">Share your recipe</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong id="stat-recipes">—</strong><span>Recipes</span></div>
+        <div><strong id="stat-categories">—</strong><span>Categories</span></div>
+      </div>    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="plate">
+        <div class="plate-inner"><span>&#127859;</span></div>
+      </div>
+      <div class="chip chip-1"><span class="chip-dot"></span>Step-by-step guides</div>
+      <div class="chip chip-2"><span class="chip-dot"></span>Save your favorites</div>
+    </div>
+  </div>
+</section>
+
+<div class="container search-panel">
+  <form class="search-card" action="/recipes/" method="get" role="search">
+    <div class="search-field">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input type="search" name="q" placeholder="Search recipes, cuisines or ingredients…" aria-label="Search recipes">
+    </div>
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+</div>
+
+<section class="section container" aria-labelledby="featured-heading">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Editor's picks</span>
+      <h2 id="featured-heading">Featured recipes</h2>
+      <p>Top-rated dishes from the community, curated for this week.</p>
+    </div>
+    <a class="btn btn-outline" href="/recipes/">View all</a>
+  </div>
+  <div class="card-grid" id="featured-grid"></div>
+</section>
+
+<section class="section container" aria-labelledby="categories-heading">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Browse by type</span>
+      <h2 id="categories-heading">Popular categories</h2>
+      <p>From quick breakfasts to slow weekend bakes — find your next favorite.</p>
+    </div>
+  </div>
+  <div class="category-grid" id="category-grid"></div>
+</section>
+
+<section class="section container" aria-labelledby="latest-heading">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Fresh from the kitchen</span>
+      <h2 id="latest-heading">Latest recipes</h2>
+      <p>The newest additions submitted by our home cooks.</p>
+    </div>
+    <a class="btn btn-outline" href="/recipes/?ordering=-created_at">See all new</a>
+  </div>
+  <div class="card-grid" id="latest-grid"></div>
+</section>
+
+<section class="container" style="padding-bottom: 2rem">
+  <div class="cta-band">
+    <h2>Have a recipe worth sharing?</h2>
+    <p>Join RecipeHub to publish your own recipes, organise ingredients and steps, and build a collection of dishes you can cook again and again.</p>
+    <div class="cta-actions">
+      <a class="btn btn-lg" href="/register/">Create your free account</a>
+      <a class="btn btn-ghost btn-lg" href="/recipes/">Keep browsing</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

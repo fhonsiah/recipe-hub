@@ -1,0 +1,164 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block page_id %}recipe-form{% endblock %}
+{% block body_attrs %}data-requires-auth="1"{% endblock %}
+{% block title %}Add a recipe — RecipeHub{% endblock %}
+
+{% block content %}
+<div class="container section">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a> <span aria-hidden="true">/</span>
+    <a href="/dashboard/">Dashboard</a> <span aria-hidden="true">/</span>
+    <span aria-current="page" data-breadcrumb-current>Add recipe</span>
+  </nav>
+
+  <header class="form-page-header">
+    <h1 id="form-title">Add a recipe</h1>
+    <p id="form-subtitle">Share a dish you love. Be specific about quantities and steps so anyone can cook it.</p>
+  </header>
+
+  <form class="form-layout" id="recipe-form" novalidate enctype="multipart/form-data">
+    <div class="form-main">
+
+      <div class="alert alert-error" id="form-error" hidden></div>
+
+      <section class="form-card">
+        <header>
+          <h2>Basics</h2>
+          <p>The name, story and classification of your dish.</p>
+        </header>
+        <div class="form-grid">
+          <div class="field">
+            <label for="title">Recipe title <span aria-hidden="true">*</span></label>
+            <input type="text" id="title" name="title" required maxlength="200" placeholder="e.g. Charred Tomato Basil Pasta">
+            <span class="error-text" data-error-for="title"></span>
+          </div>
+
+          <div class="field">
+            <label for="description">Description <span aria-hidden="true">*</span></label>
+            <textarea id="description" name="description" required rows="4" placeholder="What makes this dish special? Two or three sentences works well."></textarea>
+            <span class="hint" id="description-count">0 characters</span>
+            <span class="error-text" data-error-for="description"></span>
+          </div>
+
+          <div class="form-row form-row-2">
+            <div class="field">
+              <label for="category">Category</label>
+              <select id="category" name="category">
+                <option value="">No category</option>
+              </select>
+              <span class="error-text" data-error-for="category"></span>
+            </div>
+            <div class="field">
+              <label for="cuisine">Cuisine</label>
+              <input type="text" id="cuisine" name="cuisine" maxlength="100" placeholder="e.g. Italian" list="cuisine-list">
+              <datalist id="cuisine-list"></datalist>
+              <span class="error-text" data-error-for="cuisine"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-card">
+        <header>
+          <h2>Timing &amp; difficulty</h2>
+          <p>Helps other cooks plan ahead.</p>
+        </header>
+        <div class="form-grid">
+          <div class="form-row form-row-2">
+            <div class="field">
+              <label for="preparation_time">Preparation time (minutes) <span aria-hidden="true">*</span></label>
+              <input type="number" id="preparation_time" name="preparation_time" min="0" max="10080" value="15" required>
+              <span class="error-text" data-error-for="preparation_time"></span>
+            </div>
+            <div class="field">
+              <label for="cooking_time">Cooking time (minutes) <span aria-hidden="true">*</span></label>
+              <input type="number" id="cooking_time" name="cooking_time" min="0" max="10080" value="30" required>
+              <span class="error-text" data-error-for="cooking_time"></span>
+            </div>
+          </div>
+
+          <div class="form-row form-row-2">
+            <div class="field">
+              <label for="servings">Servings <span aria-hidden="true">*</span></label>
+              <input type="number" id="servings" name="servings" min="1" max="100" value="4" required>
+              <span class="error-text" data-error-for="servings"></span>
+            </div>
+            <div class="field">
+              <label for="difficulty">Difficulty</label>
+              <select id="difficulty" name="difficulty">
+                <option value="easy">Easy — a beginner can nail it</option>
+                <option value="medium" selected>Medium — some technique needed</option>
+                <option value="hard">Hard — advanced techniques</option>
+              </select>
+              <span class="error-text" data-error-for="difficulty"></span>
+            </div>
+          </div>
+
+          <p class="hint" id="total-time-hint">Total time: 45 minutes</p>
+        </div>
+      </section>
+
+      <section class="form-card">
+        <header>
+          <h2>Ingredients</h2>
+          <p>Add each ingredient on its own row. Mark the ones a cook can safely leave out.</p>
+        </header>
+        <div id="ingredient-rows"></div>
+        <button class="btn btn-outline btn-sm" type="button" id="add-ingredient" style="margin-top:.9rem">+ Add ingredient</button>
+        <span class="error-text" data-error-for="ingredients"></span>
+      </section>
+
+      <section class="form-card">
+        <header>
+          <h2>Preparation steps</h2>
+          <p>One action per step, in the order a cook should work through them.</p>
+        </header>
+        <div id="instruction-rows"></div>
+        <button class="btn btn-outline btn-sm" type="button" id="add-instruction" style="margin-top:.9rem">+ Add step</button>
+        <span class="error-text" data-error-for="instructions"></span>
+      </section>
+    </div>
+
+    <aside class="form-aside">
+      <section class="form-card">
+        <header>
+          <h2>Photo</h2>
+          <p>A good photo doubles the chance someone tries your recipe.</p>
+        </header>
+        <div class="image-preview" id="image-preview">
+          <span id="image-preview-text">No image selected</span>
+        </div>
+        <div class="field" style="margin-top:1rem">
+          <label for="image">Recipe image</label>
+          <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp">
+          <span class="hint">JPG, PNG or WebP. Up to 5 MB.</span>
+          <span class="error-text" data-error-for="image"></span>
+        </div>
+      </section>
+
+      <section class="form-card">
+        <header>
+          <h2>Visibility</h2>
+        </header>
+        <label class="checkbox-row">
+          <input type="checkbox" id="published" name="published" checked>
+          <span>Publish immediately</span>
+        </label>
+        <p class="hint" style="margin-top:.6rem">Unpublished recipes stay private and only visible to you.</p>
+      </section>
+
+      <section class="form-card">
+        <div class="form-actions">
+          <button class="btn btn-primary btn-block" type="submit" id="submit-recipe">Publish recipe</button>
+          <button class="btn btn-ghost btn-block" type="button" id="cancel-recipe">Cancel</button>
+        </div>
+      </section>
+    </aside>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/recipe-form.js' %}"></script>
+{% endblock %}

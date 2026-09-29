@@ -1,0 +1,31 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block page_id %}favorites{% endblock %}
+{% block body_attrs %}data-requires-auth="1"{% endblock %}
+{% block title %}Your favorites — RecipeHub{% endblock %}
+
+{% block content %}
+<div class="container section">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a> <span aria-hidden="true">/</span>
+    <span aria-current="page">Favorites</span>
+  </nav>
+
+  <header class="section-head">
+    <div>
+      <span class="eyebrow">Your collection</span>
+      <h1>Saved recipes</h1>
+      <p id="favorites-summary">Everything you have bookmarked, ready when you are.</p>
+    </div>
+    <a class="btn btn-outline" href="/recipes/">Discover more recipes</a>
+  </header>
+
+  <div class="card-grid" id="favorites-grid"></div>
+
+  <nav class="pagination" id="favorites-pagination" aria-label="Pagination"></nav>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/favorites.js' %}"></script>
+{% endblock %}
