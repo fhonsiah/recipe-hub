@@ -11,7 +11,7 @@ recipes with images, ingredients and step-by-step instructions, and save favorit
 
 ## Table of contents
 
-- [Screenshots](#screenshots)
+- [Pages](#pages)
 - [Tech stack](#tech-stack)
 - [Features](#features)
 - [Project structure](#project-structure)
@@ -27,7 +27,7 @@ recipes with images, ingredients and step-by-step instructions, and save favorit
 
 ---
 
-## Screenshots
+## Pages
 
 | Page | Route |
 | --- | --- |
